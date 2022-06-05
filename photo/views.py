@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Image,Comment
 from django.contrib.auth.models import User
-from .forms import uploadForm
+from .forms import uploadForm,commentForm
 
 # Create your views here.
 
