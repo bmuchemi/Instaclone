@@ -67,5 +67,36 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
     
-   
+
+class Comment(models.Model):
+    related_post = models.ForeignKey(Image, on_delete=models.CASCADE)
+    name = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    comment_body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['?']
+
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
     
+    def edit_comment(self, new_comment):
+        self.comment_body = new_comment
+        self.save()
+
+    def __str__(self):
+        return f'Comment by {self.name}'
+
+
+class Relation(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followwers')
+
+    class Meta:
+        ordering = ['?']
+
+    def __str__(self):
+        return f'{self.follower} follows {self.followed}'
