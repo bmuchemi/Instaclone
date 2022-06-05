@@ -6,5 +6,4 @@ from .models import Image
 
 def feed(request):
     pictures = Image.objects.all()
-    number = Comment.objects.count()
-    return render(request, 'feed.html', {'pictures': pictures, 'number': number})
+    return render(request, 'feed.html', {'pictures': pictures})
