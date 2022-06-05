@@ -10,3 +10,20 @@ class Image(models.Model):
     likes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['?']
+    
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
+    def update_caption(self, new_caption):
+        self.caption = new_caption
+        self.save()
+
+    def update_likes(self):
+        self.likes += 1
+        self.save()
+    
