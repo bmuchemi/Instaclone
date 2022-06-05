@@ -36,7 +36,7 @@ class Image(models.Model):
         return sort
 
 class Profile(models.Model):
-    use = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='avatars/', default='default.jpg')
     bio = models.TextField(default=f'Hello,I am new to instagram', blank=True)
 
