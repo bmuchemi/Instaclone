@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Image,Comment
+from .models import Image,Profile,Comment,Relation
 from django.contrib.auth.models import User
 from .forms import uploadForm,commentForm
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,7 @@ def feed(request):
     return render(request, 'feed.html', {'pictures': pictures}, {'number':number})
 
 @login_required(login_url='/accounts/login/')
-def profile(request):
+def profile(request,):
     current_user = request.user.profile         
     pics = Image.objects.filter(profile=current_user).all()
     return render(request, 'profile.html', {'pics':pics})
@@ -39,7 +39,7 @@ def new_image(request):
     return render(request, 'new_image.html', {'form':form})
 
 @login_required(login_url='/accounts/login/')
-def comments(request, image_id):
+def comments(request, id):
     current_user = request.user.profile
     post = Image.objects.filter(id=id)
 

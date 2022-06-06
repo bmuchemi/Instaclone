@@ -35,13 +35,14 @@ class Image(models.Model):
         sort = sorted(img, key=lambda t: t.created_at)
         return sort
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='avatars/', default='default.jpg')
     bio = models.TextField(default=f'Hello,I am new to instagram', blank=True)
 
     def __str__(self):
-        return f'{self.use.username}'
+        return f'{self.user.username}'
 
     def save_profile(self):
         self.save()
@@ -57,6 +58,7 @@ class Profile(models.Model):
         user = User.objects.get(id = user_id)
         self.photo = new_image
         self.save()
+        return user
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
