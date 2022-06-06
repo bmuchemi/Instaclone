@@ -3,15 +3,19 @@ from django.http import HttpResponse
 from .models import Image,Comment
 from django.contrib.auth.models import User
 from .forms import uploadForm,commentForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required(login_url='/accounts/login/')
 def feed(request):
     pictures = Image.objects.all()
-    return render(request, 'feed.html', {'pictures': pictures})
+    number = Comment.objects.count()
+    return render(request, 'feed.html', {'pictures': pictures}, {'number':number})
 
+@login_required(login_url='/accounts/login/')
 def profile(request):
-    current_user = request.user.profile
+    current_user = request.user.profile         
     pics = Image.objects.filter(profile=current_user).all()
     return render(request, 'profile.html', {'pics':pics})
 
@@ -20,7 +24,7 @@ def user(request, user_id):
     pics = Image.objects.filter(profile=user_id).all()    
     return render(request, 'user.html', {'pics':pics, 'users':users}) 
 
-
+@login_required(login_url='/accounts/login/')
 def new_image(request):
     current_user = request.user.profile
     if request.method == 'POST':
@@ -34,6 +38,7 @@ def new_image(request):
         form = uploadForm()
     return render(request, 'new_image.html', {'form':form})
 
+@login_required(login_url='/accounts/login/')
 def comments(request, image_id):
     current_user = request.user.profile
     post = Image.objects.filter(id=id)
