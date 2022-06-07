@@ -38,7 +38,7 @@ class Image(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='avatars/', default='default.jpg')
+    photo = models.ImageField(upload_to='avatars/')
     bio = models.TextField(default=f'Hello,I am new to instagram', blank=True)
 
     def __str__(self):
