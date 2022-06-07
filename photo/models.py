@@ -98,7 +98,7 @@ class Comment(models.Model):
         return f'Comment by {self.name}'
 
 
-class Relation(models.Model):
+class Foll(models.Model):
     follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
     followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followwers')
 

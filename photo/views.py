@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Image,Profile,Comment,Relation
+from .models import Image,Profile,Comment
 from django.contrib.auth.models import User
 from .forms import uploadForm,commentForm
 from django.contrib.auth.decorators import login_required
