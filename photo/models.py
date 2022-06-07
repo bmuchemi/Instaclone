@@ -68,6 +68,11 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
+
+    @classmethod
+    def get_profile(cls, profile_id):
+        profile = Profile.objects.get(user=profile_id)
+        return profile
     
 
 class Comment(models.Model):

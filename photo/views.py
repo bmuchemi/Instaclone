@@ -14,10 +14,10 @@ def feed(request):
     return render(request, 'feed.html', {'pictures':pictures, 'number':number})
 
 @login_required(login_url='/accounts/login/')
-def profile(request):
-    current_user = request.user.profile         
-    pics = Image.objects.filter(profile=current_user).all()
-    return render(request, 'profile.html', {'pics':pics})
+def profile(request,user_id):  
+    users = User.objects.filter(id=user_id)     
+    pics = Image.objects.filter(profile=user_id).all()
+    return render(request, 'profile.html', {'pics':pics, 'users':users})
 
 def user(request, user_id):
     users = User.objects.filter(id=user_id)
