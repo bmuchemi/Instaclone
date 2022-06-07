@@ -11,10 +11,10 @@ from django.contrib.auth.decorators import login_required
 def feed(request):
     pictures = Image.objects.all()
     number = Comment.objects.count()
-    return render(request, 'feed.html', {'pictures': pictures}, {'number':number})
+    return render(request, 'feed.html', {'pictures':pictures, 'number':number})
 
 @login_required(login_url='/accounts/login/')
-def profile(request,):
+def profile(request):
     current_user = request.user.profile         
     pics = Image.objects.filter(profile=current_user).all()
     return render(request, 'profile.html', {'pics':pics})
