@@ -9,19 +9,19 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/accounts/login/')
 def feed(request):
+    person = User.objects.filter(id=request.user.id)
     pictures = Image.objects.all()
     number = Comment.objects.count()
-    return render(request, 'feed.html', {'pictures':pictures, 'number':number})
+    return render(request, 'feed.html', {'pictures':pictures, 'number':number, 'person':person})
 
 @login_required(login_url='/accounts/login/')
 def profile(request,user_id):  
     users = User.objects.filter(id=user_id)     
-    pics = Image.objects.filter(profile=user_id).all()
-    return render(request, 'profile.html', {'pics':pics, 'users':users})
+    return render(request, 'profile.html', {'users':users})
 
-def user(request, user_id):
-    users = User.objects.filter(id=user_id)
-    pics = Image.objects.filter(profile=user_id).all()    
+def user(request, profile_id):
+    users = Profile.objects.filter(id=profile_id)
+    pics = Image.objects.filter(profile=profile_id).all()    
     return render(request, 'user.html', {'pics':pics, 'users':users}) 
 
 @login_required(login_url='/accounts/login/')
@@ -61,10 +61,7 @@ def comments(request, id):
 
 
 def like_post(request, post_id):
-    current_user = request.user
-    img = Image.objects.get(id=post_id)
-    if img.likes.filter(id=current_user.id).exists():
-        img.likes.remove(current_user)
-    else:
-        img.likes.add(current_user)
+    post = Image.objects.get(id=post_id)
+    post.update_likes()
+   
     return redirect('feed')
