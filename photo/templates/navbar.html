@@ -6,10 +6,13 @@
         <i class='far fa-paper-plane'></i>
         <i class='far fa-compass'></i>
         <i class='far fa-heart'></i>
+
         <div id="user">
-            <a href="{% url 'profile/{{user_id}}">
-                <img src="{{user.profile.image.url}}">
+            {% for item in person %}
+            <a href="user/{{item.id}}"> {% endfor %}
+                <img src="{{user.profile.photo.url}}" class="user-image">
             </a>
         </div>
+
     </nav>
 </header>

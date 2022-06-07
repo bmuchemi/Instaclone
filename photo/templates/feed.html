@@ -1,6 +1,6 @@
 {% extends 'base.html' %} 
 
-<!--  -->
+  
 {% block content %} {{block.super}}
 <main>
     <section>
@@ -8,10 +8,10 @@
         <article id="post">
             <div class="Instagram-card">
                 <div class="Instagram-card-header">
-                    <a href="user/{{item.profile.user.id}}">
-                        <img src="{{item.profile.photo.url}}" class="Instagram-card-user-image ">
+                    <a href="user/{{item.id}}">
+                        <img src="{{item.image.url}}" class="Instagram-card-user-image ">
                     </a>
-                    <a class="Instagram-card-user-name" href="user/{{item.profile.user.id}}"> {{item.profile.user}} </a>
+                    <a class="Instagram-card-user-name" href="user/{{item.profile.user.id}}" style="color: black;" >{{item.profile}} </a>
                     <a class="instagram-card-icon left" href="#"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
                 </div>
 
@@ -20,14 +20,14 @@
                 </div>
 
                 <div class="Instagram-card-content">
-                    <a class="instagram-card-icon" href="/like/{{item.id}}"><i class="far fa-heart"></i></a>
-                    <a class="instagram-card-icon" href="/comments/{{item.id}}"><i class="far fa-comment"></i></a>
+                    <a class="instagram-card-icon" href="likes/{{item.id}}"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                    <a class="instagram-card-icon" href="comments/{{item.id}}"><i class="far fa-comment"></i></a>
                     <a class="instagram-card-icon left" href="#"><i class="far fa-bookmark"></i></a>
-                    <p class="Likes">{{item.likes.count}} Likes</p>
+                    <p class="Likes">1,763 likes</p>
                     <p>
                         <a class="Instagram-card-content-user" href="#">{{item.profile.user}}</a> {{item.caption}}.
                     </p>
-                    <a href="/comments/{{item.id}}" class="comments">
+                    <a href="comments/{{item.id}}" class="comments">
                         {% if number %}
                         View all {{number}} comments
                         {% endif %}
