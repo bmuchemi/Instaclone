@@ -8,7 +8,7 @@ class Image(models.Model):
     image = models.ImageField(upload_to='images/')
     caption = models.CharField(max_length=500)
     profile = models.ForeignKey(User, on_delete=models.CASCADE,default='')
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='like')
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -73,7 +73,7 @@ class Profile(models.Model):
     def get_profile(cls, profile_id):
         profile = Profile.objects.get(user=profile_id)
         return profile
-    
+
 
 class Comment(models.Model):
     related_post = models.ForeignKey(Image, on_delete=models.CASCADE)

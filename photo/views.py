@@ -1,5 +1,6 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.urls import reverse
+from django.shortcuts import render,redirect,get_object_or_404
+from django.http import HttpResponseRedirect
 from .models import Image,Profile,Comment
 from django.contrib.auth.models import User
 from .forms import uploadForm,commentForm
@@ -60,8 +61,9 @@ def comments(request, id):
     return render(request, 'comments.html', {'form':form, 'maoni':maoni})
 
 
-def like_post(request, post_id):
-    post = Image.objects.get(id=post_id)
-    post.update_likes()
+def like_post(request,pk):
+    post = get_object_or_404(Image, id = request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('likes.html', args=[str(pk)]))  
+
    
-    return redirect('feed')
